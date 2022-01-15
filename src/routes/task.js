@@ -28,6 +28,8 @@ taskRouter.post("/tasks", auth, async (req, res) => {
     //     });
 });
 
+//GET /tasks?completed=[true|false] filters for tasks based on completed value
+//GET /tasks?limit= &skip=  allows pagination
 taskRouter.get("/tasks", auth, async (req, res) => {
     const match = {};
 
@@ -39,6 +41,10 @@ taskRouter.get("/tasks", auth, async (req, res) => {
         await req.user.populate({
             path: 'tasks',
             match,
+            options:{
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip),
+            },
         });
         const tasks = req.user.tasks;
         res.send(tasks);
