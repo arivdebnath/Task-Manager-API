@@ -29,10 +29,17 @@ taskRouter.post("/tasks", auth, async (req, res) => {
 });
 
 taskRouter.get("/tasks", auth, async (req, res) => {
+    const match = {};
 
+    if(req.query.completed){
+        match.completed = req.query.completed === 'true';
+    }
     try {
         // const tasks = await Task.find({});
-        await req.user.populate('tasks');
+        await req.user.populate({
+            path: 'tasks',
+            match,
+        });
         const tasks = req.user.tasks;
         res.send(tasks);
     } catch (e) {
