@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const auth = require('../middleware/auth');
+const multer = require('multer');
 
 const userRouter = new express.Router();
 
@@ -139,6 +140,14 @@ userRouter.delete('/users/me', auth, async (req, res) => {
     } catch (e) {
         res.status(500).send();
     }
+})
+
+const upload = multer({
+    dest: 'avatars',
+})
+
+userRouter.post('/users/me/avatars', upload.single('avatar'), (req, res) => {
+    res.status(200).send();
 })
 
 module.exports = userRouter;
