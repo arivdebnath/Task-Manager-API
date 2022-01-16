@@ -54,3 +54,15 @@ app.listen(port, () => {
 // }
 
 // main();
+
+//Trying out multer
+
+const multer = require('multer');
+
+const upload = multer({
+    dest: 'img',
+})
+
+app.post('/upload', upload.single('upload'), (req, res)=>{
+    res.status(200).send();
+}) 
