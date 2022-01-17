@@ -21,6 +21,24 @@ const port = process.env.PORT || 3000;
 // app.use((req, res, next) => {
 //     res.status(503).send('Under maintainence!!');
 // })
+const multer = require('multer');
+
+const upload = multer({
+    dest: 'img',
+    limits: {
+        fileSize: 2000000,
+    },
+    fileFilter(req, file, cb){
+        if(!file.originalname.match(/\.(doc|docx|pdf)$/)){
+            return cb(new Error('Please insert a valid file'));
+        }
+        cb(undefined, true);
+    }
+})
+
+app.post('/upload', upload.single('upload'), (req, res)=>{
+    res.status(200).send();
+}) 
 
 app.use(express.json());
 app.use(userRouter);
@@ -57,12 +75,3 @@ app.listen(port, () => {
 
 //Trying out multer
 
-const multer = require('multer');
-
-const upload = multer({
-    dest: 'img',
-})
-
-app.post('/upload', upload.single('upload'), (req, res)=>{
-    res.status(200).send();
-}) 

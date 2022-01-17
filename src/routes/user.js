@@ -65,7 +65,7 @@ userRouter.post('/users/logoutALl', auth, async (req, res) => {
     }
 })
 
-
+//Profile Endpoint
 userRouter.get("/users/me", auth, async (req, res) => {
     res.send(req.user);
 
@@ -105,7 +105,7 @@ userRouter.get("/users/me", auth, async (req, res) => {
 //     //         res.status(500).send();
 //     //     });
 // });
-
+//Update Endpoint
 userRouter.patch('/users/me', auth, async (req, res) => {
     const allowedUpdates = ['name', 'age', 'email', 'password'];
     const updates = Object.keys(req.body);
@@ -131,7 +131,7 @@ userRouter.patch('/users/me', auth, async (req, res) => {
         res.status(400).send(e);
     }
 })
-
+//Delete Endpoint
 userRouter.delete('/users/me', auth, async (req, res) => {
     try {
         await req.user.remove();
@@ -142,8 +142,19 @@ userRouter.delete('/users/me', auth, async (req, res) => {
     }
 })
 
+//File Upload Endpoint
+
 const upload = multer({
     dest: 'avatars',
+    limits: {
+        fileSize: 1000000,  //in bytes
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            return cb(new Error('Please upload an image'));
+        }
+        cb(undefined, true);
+    }
 })
 
 userRouter.post('/users/me/avatars', upload.single('avatar'), (req, res) => {
