@@ -159,6 +159,8 @@ const upload = multer({
 
 userRouter.post('/users/me/avatars', upload.single('avatar'), (req, res) => {
     res.status(200).send();
-})
+}, (error, req, res, next)=>{
+    res.status(400).send({error: error.message}); //catching the error from the 'upload' middleware and sending it to a callback function
+})                                                //which is passed as the fourth argument to the http method  
 
 module.exports = userRouter;
