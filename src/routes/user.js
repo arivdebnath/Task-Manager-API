@@ -145,7 +145,6 @@ userRouter.delete('/users/me', auth, async (req, res) => {
 //File Upload Endpoint
 
 const upload = multer({
-    dest: 'avatars',
     limits: {
         fileSize: 1000000,  //in bytes
     },
@@ -157,10 +156,32 @@ const upload = multer({
     }
 })
 
-userRouter.post('/users/me/avatars', upload.single('avatar'), (req, res) => {
+//Uploading avatars endpoint
+userRouter.post('/users/me/avatars', auth, upload.single('avatar'), async (req, res) => {
+
+    req.user.avatar = req.file.buffer;
+
+    await req.user.save();
+
     res.status(200).send();
-}, (error, req, res, next)=>{
-    res.status(400).send({error: error.message}); //catching the error from the 'upload' middleware and sending it to a callback function
+
+}, (error, req, res, next) => {
+
+    res.status(400).send({ error: error.message }); //catching the error from the 'upload' middleware and sending it to a callback function
 })                                                //which is passed as the fourth argument to the http method  
+
+//Deleting avatars endpoint
+userRouter.delete('/users/me/avatars', auth, async (req, res) => {
+    try {
+
+        req.user.avatar = undefined;
+        // await req.user.avatar.remove();
+        await req.user.save();
+        res.send();
+
+    } catch (e) {
+        res.status(500).send(e);
+    }
+})
 
 module.exports = userRouter;
