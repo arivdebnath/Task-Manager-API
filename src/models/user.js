@@ -81,7 +81,7 @@ userSchema.methods.toJSON = function () {
 
 userSchema.methods.genToken = async function () {  //methods for the instances of the model
     const user = this
-    const token = jwt.sign({ _id: user._id.toString() }, 'securedauth');
+    const token = jwt.sign({ _id: user._id.toString() }, process.env.HASH_SECR);
 
     user.tokens = user.tokens.concat({ token });
 
