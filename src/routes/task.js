@@ -53,8 +53,8 @@ taskRouter.get("/tasks", auth, async (req, res) => {
             path: 'tasks',
             match,
             options:{
-                limit: parseInt(req.query.limit),
-                skip: parseInt(req.query.skip),
+                limit: (req.query.limit===undefined)?undefined:parseInt(req.query.limit),
+                skip: (req.query.skip===undefined)?undefined:parseInt(req.query.skip),
                 sort,
             },
         });
