@@ -50,12 +50,26 @@ test('read profile test', async () => {
         .set('Authorization', `Bearer ${testUserOne.tokens[0].token}`)
         .send()
         .expect(200);
-})
+});
 
-test('read profile fail test', async ()=>{
+test('read profile fail test', async () => {
     await request(app)
-    .get('/users/me')
-    .send()
-    .expect(401);
-})
+        .get('/users/me')
+        .send()
+        .expect(401);
+});
 
+test('delete profile test', async () => {
+    await request(app)
+        .delete('/users/me')
+        .set('Authorization', `Bearer ${testUserOne.tokens[0].token}`)
+        .send()
+        .expect(200);
+});
+
+test('delete profile fail test', async () => {
+    await request(app)
+        .delete('/users/me')
+        .send()
+        .expect(401);
+});
