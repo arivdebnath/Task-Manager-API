@@ -86,8 +86,9 @@ test('delete profile test', async () => {
         .set('Authorization', `Bearer ${testUserOne.tokens[0].token}`)
         .send()
         .expect(200);
-    
-    const user = await User.findById(testUserOneId);
+
+    // const user = await User.findById(testUserOneId);  //alternatively
+    const user = await User.findById(response.body.id);
     expect(user).toBeNull();
 });
 
@@ -96,4 +97,15 @@ test('delete profile fail test', async () => {
         .delete('/users/me')
         .send()
         .expect(401);
+});
+
+test('upload endpoint test', async () => {
+    await request(app)
+        .post('/users/me/avatars')
+        .set('Authorization', `Bearer ${testUserOne.tokens[0].token}`)
+        .attach('avatar', 'tests/fixtures/testpic.jpg')
+        .expect(200);
+    
+    const user = await User.findById(testUserOne._id);
+    expect(user.avatar).toEqual(expect.any(Buffer));
 });
