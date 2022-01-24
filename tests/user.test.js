@@ -105,7 +105,31 @@ test('upload endpoint test', async () => {
         .set('Authorization', `Bearer ${testUserOne.tokens[0].token}`)
         .attach('avatar', 'tests/fixtures/testpic.jpg')
         .expect(200);
-    
+
     const user = await User.findById(testUserOne._id);
     expect(user.avatar).toEqual(expect.any(Buffer));
 });
+
+test('update field test', async () => {
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', `Bearer ${testUserOne.tokens[0].token}`)
+        .send({
+            name: "not mike",
+            age: 30
+        })
+        .expect(200);
+
+    const user = await User.findById(testUserOneId);
+    expect(user.name).toBe('not mike');
+})
+
+test('update endpoint invaild field test', async () => {
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', `Bearer ${testUserOne.tokens[0].token}`)
+        .send({
+            invalid: 'not a legit field',
+        })
+        .expect(400);
+})
