@@ -1,27 +1,9 @@
 const request = require('supertest');
-const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
 const app = require('../src/app');
 const User = require('../src/models/user');
-const userRouter = require('../src/routes/user');
+const {testUserOne, testUserOneId, setupDatabase} = require('./fixtures/db');
 
-const testUserOneId = new mongoose.Types.ObjectId();
-const testUserOne = {
-    _id: testUserOneId,
-    name: "Test User One",
-    email: "testuser1@email.com",
-    password: "testuserone",
-    tokens: [{
-        _id: new mongoose.Types.ObjectId(),
-        token: jwt.sign({ _id: testUserOneId }, process.env.HASH_SECR),
-    }]
-}
-
-beforeEach(async () => {
-    await User.deleteMany();
-    await new User(testUserOne).save();
-
-});
+beforeEach(setupDatabase);
 
 test('signup test', async () => {
     const response = await request(app).post('/users').send({
