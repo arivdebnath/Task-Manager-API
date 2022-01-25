@@ -15,10 +15,18 @@ const testUserOne = {
     }]
 }
 
+const taskOne = {
+    _id: new mongoose.Types.ObjectId(),
+    description: 'annoying task',
+    completed: false,
+    owner: testUserOneId
+}
+
 const setupDatabase = async()=>{
     await User.deleteMany();
-    // await Task.deleteMany();
     await new User(testUserOne).save();
+    await Task.deleteMany();
+    await new Task(taskOne).save();
 }
 
 module.exports = {

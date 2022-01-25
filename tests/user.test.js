@@ -111,7 +111,7 @@ test('update endpoint invaild field test', async () => {
         .patch('/users/me')
         .set('Authorization', `Bearer ${testUserOne.tokens[0].token}`)
         .send({
-            invalid: 'not a legit field',
+            invalid: 'not a legit field'
         })
         .expect(400);
 })

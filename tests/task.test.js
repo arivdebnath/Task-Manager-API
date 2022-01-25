@@ -13,5 +13,13 @@ test('create task test', async () => {
             description: "test the test task",
         })
         .expect(201);
-    const task = await Task.findById(response.body._id);
+
+})
+
+test('read task', async () => {
+    await request(app)
+        .get('/tasks')
+        .set('Authorization', `Bearer ${testUserOne.tokens[0].token}`)
+        .send()
+        .expect(200)
 })
