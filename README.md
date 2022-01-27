@@ -16,4 +16,8 @@ The API endpoints should be up and available at the default port 3000, unless pr
 - JWT based authentication.
 - File upload support.
 
+## Endpoints
 
+|Endpoints |Description|
+|----------|------------|
+|     User Endpoints    |
