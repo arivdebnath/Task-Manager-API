@@ -18,6 +18,9 @@ The API endpoints should be up and available at the default port 3000, unless pr
 
 ## Endpoints
 
-|Endpoints |Description|
-|----------|------------|
-|     User Endpoints    |
+|Endpoints | Method | Description|
+|----------|--------|-------------|
+||         User Endpoints        ||
+|"/users"  | POST   | New User Signup|
+|"/users/login"| POST| User Login|
+|"/users/logout"| POST | Logs out the user from the current session|
