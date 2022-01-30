@@ -17,7 +17,7 @@ The API endpoints should be up and available at the default port 3000, unless pr
 - File upload support.
 
 ## Endpoints
-||         User Endpoints       ||
+### User Endpoints
 |Endpoints | Method | Description|
 |----------|--------|-------------|
 |"/users"  | POST   | New User Signup|
@@ -28,4 +28,5 @@ The API endpoints should be up and available at the default port 3000, unless pr
 |"/users/me"| PATCH| Updates the value of the provided fields for the current user|
 |"/users/me"| DELETE | Deletes the account of the current user|
 |"/users/me/avatars"|POST| To upload the profile picture of the user|
-
+|"/users/me/avatars"|DELETE| To delete the profile picture of the user|
+|"/users/:id/avatar"|GET| To fetch the profile picture of the user|
