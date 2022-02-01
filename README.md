@@ -7,7 +7,7 @@ npm install
 ```
 and then, run
 ```
-npm start
+npm run start
 ```
 The API endpoints should be up and available at the default port 3000, unless provided otherwise.
 
