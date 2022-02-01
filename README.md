@@ -31,5 +31,8 @@ The API endpoints should be up and available at the default port 3000, unless pr
 |"/users/me/avatars"|DELETE| To delete the profile picture of the user|
 |"/users/:id/avatar"|GET| To fetch the profile picture of the user|
 
-###Tasks Endpoints
+### Tasks Endpoints
+|Endpoints | Method | Description|
+|-------|-------|------|
+|"/tasks" | POST | Creates a new Task| 
 
