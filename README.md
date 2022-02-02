@@ -35,4 +35,7 @@ The API endpoints should be up and available at the default port 3000, unless pr
 |Endpoints | Method | Description|
 |-------|-------|------|
 |"/tasks" | POST | Creates a new Task| 
+|"/tasks/:id"| GET | Fetches task with the given id|
+|"/tasks/:id"| PATCH | Updates task with the given id|
+|"/tasks/:id"| DELETE | Deletes the task with the given id|
 
