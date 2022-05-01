@@ -40,4 +40,5 @@ The API endpoints should be up and available at the default port 3000, unless pr
 |"/tasks/:id"| DELETE | Deletes the task with the given id|
 > The only valid fields for tasks are `description` and `completed`. `completed` is of type boolean while `description` contains the description for the given
 > task.
-
+### Todo
+- [ ] Using the API build the full-stack application.
